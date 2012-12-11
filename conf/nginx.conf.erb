@@ -26,7 +26,7 @@ http {
     listen            <%= ENV['PORT'] %>;
     server_name       _;
 
-    root              /app/;
+    root              /app/admin/;
     index             index.php index.html index.htm;
 
     # Some basic cache-control for static files to be sent to the browser
@@ -67,6 +67,13 @@ http {
     location /server-status {
       stub_status on;
       access_log   off;
+    }
+
+    set $yii_bootstrap "index.php";
+
+    location / {
+        index  index.html $yii_bootstrap;
+        try_files $uri $uri/ /$yii_bootstrap?$args;
     }
 
     #location / {
