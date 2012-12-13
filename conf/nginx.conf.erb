@@ -13,6 +13,7 @@ http {
   server_tokens       off;
   keepalive_timeout   65;
   gzip                on;
+  error_log           stderr;
   access_log          off;
   client_max_body_size 500M;
   proxy_max_temp_file_size	0;
