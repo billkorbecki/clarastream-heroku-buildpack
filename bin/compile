@@ -15,6 +15,7 @@ S3_BUCKET=heroku-buildpack-php-tyler
 
 #
 S3_URL="https://s3.amazonaws.com/${S3_BUCKET}"
+S32_URL="https://s3.amazonaws.com/clarastream.com/deployment"
 
 MANIFEST_FILE="manifest.md5sum"
 NGINX_FILE="nginx-${NGINX_VERSION}-heroku.tar.gz"
@@ -23,11 +24,11 @@ MEMCACHED_FILE="libmemcached-${LIBMEMCACHED_VERSION}.tar.gz"
 PHP_FILE="php-${PHP_VERSION}-with-fpm-heroku.tar.gz"
 NEWRELIC_FILE="newrelic-${NEWRELIC_VERSION}-heroku.tar.gz"
 
-MANIFEST_URL="${S3_URL}/${MANIFEST_FILE}"
+MANIFEST_URL="${S32_URL}/${MANIFEST_FILE}"
 NGINX_URL="${S3_URL}/${NGINX_FILE}"
 MCRYPT_URL="${S3_URL}/${MCRYPT_FILE}"
 MEMCACHED_URL="${S3_URL}/${MEMCACHED_FILE}"
-PHP_URL="https://s3.amazonaws.com/clarastream.com/deployment/${PHP_FILE}"
+PHP_URL="${S32_URL}/${PHP_FILE}"
 NEWRELIC_URL="${S3_URL}/${NEWRELIC_FILE}"
 COMPOSER_URL="http://getcomposer.org/composer.phar"
 #
@@ -43,7 +44,7 @@ function indent() {
 function check_md5() {
 SUMS_FILE="${BUNDLE_DIR}/${MANIFEST_FILE}"
 TARGET="$1"
-SUM=`cat "${SUMS_FILE}" | grep "${TARGET}" | cut -d ' ' -f 1`
+SUM=`cat "${SUMS_FILE}" | grep "${TARGET}" | cuft -d ' ' -f 1`
 OUTPUT=`md5sum ${BUNDLE_DIR}/${TARGET} | cut -d ' ' -f 1`
 ! [ "$SUM" = "$OUTPUT" ]
 }
