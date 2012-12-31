@@ -29,6 +29,7 @@ NGINX_URL="${S3_URL}/${NGINX_FILE}"
 MCRYPT_URL="${S3_URL}/${MCRYPT_FILE}"
 MEMCACHED_URL="${S3_URL}/${MEMCACHED_FILE}"
 PHP_URL="${S32_URL}/${PHP_FILE}"
+echo "${PHP_URL}"
 NEWRELIC_URL="${S3_URL}/${NEWRELIC_FILE}"
 COMPOSER_URL="http://getcomposer.org/composer.phar"
 #
@@ -76,6 +77,7 @@ fi
 
 echo "-----> Fetching Manifest"
 download_url $MANIFEST_URL
+
 
 # Nginx
 echo "-----> Installing Nginx"
