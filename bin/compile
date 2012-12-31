@@ -1,5 +1,5 @@
 #!/bin/bash
-# Usage: bin/compile <build-dir> <cache-dir>
+#tt Usage: bin/compile <build-dir> <cache-dir>
 
 set -e
 set -o pipefail
@@ -159,6 +159,8 @@ else
 fi
 
 mkdir -p ${BUILD_DIR}/vendor/php
+if [ -f "$PHP_FILE" ] then
+  echo "${PHP_FILE} exists!" 
 tar xzf ${PHP_FILE} -C ${BUILD_DIR}/vendor/php
 
 # newrelic
@@ -205,7 +207,7 @@ popd > /dev/null
 
 # Config files
 echo "-----> Copying config files"
-cp $LP_DIR/conf/php-fpm.conf ${BUILD_DIR}/vendor/php/etc/php-fpm.conf
+cp --parents $LP_DIR/conf/php-fpm.conf ${BUILD_DIR}/vendor/php/etc/php-fpm.conf
 cp ${BUILD_DIR}/vendor/php/php/fpm/status.html ${BUILD_DIR}/status.html
 cp $LP_DIR/conf/php.ini ${BUILD_DIR}/vendor/php/php.ini
 cp -a $LP_DIR/conf/etc.d ${BUILD_DIR}/vendor/php/
