@@ -212,8 +212,8 @@ popd > /dev/null
 
 # Config files
 echo "-----> Copying config files"
-mkdir -p {$BUILD_DIR}/vendor/php/etc
-if [ -f "$LP_DIR/conf/php-fpm.conf"]
+mkdir -p ${BUILD_DIR}/vendor/php/etc
+if [ -f "${LP_DIR}/conf/php-fpm.conf"]
 then
   echo "${LP_DIR}/conf/php-fpm.conf exists!"
 fi
