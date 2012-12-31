@@ -159,10 +159,14 @@ else
 fi
 
 mkdir -p ${BUILD_DIR}/vendor/php
-if [ -f "$PHP_FILE" ] then
+
+tar xzf ${PHP_FILE} -C ${BUILD_DIR}/vendor/php
+
+if [ -f "$PHP_FILE" ]
+then
   echo "${PHP_FILE} exists!" 
 fi
-tar xzf ${PHP_FILE} -C ${BUILD_DIR}/vendor/php
+
 
 # newrelic
 echo "-----> Installing newrelic"
