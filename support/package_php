@@ -2,6 +2,7 @@
 
 set -e
 
+PHP_VERSION="5.4.8"
 if [ "$PHP_VERSION" == "" ]; then
   echo "must set PHP_VERSION, i.e PHP_VERSION=5.4.7"
   exit 1
