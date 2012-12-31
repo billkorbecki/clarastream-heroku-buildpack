@@ -65,7 +65,13 @@ export COMPOSER_HOME="${CACHE_DIR}/.composer"
 # include .files when moving things around
 shopt -s dotglob
 
-mkdir -p $BUILD_DIR $CACHE_DIR ${BUNDLE_DIR} ${BUILD_DIR}/local ${BUILD_DIR}/vendor/bin ${COMPOSER_HOME}
+mkdir -p ${BUILD_DIR} ${CACHE_DIR} ${BUNDLE_DIR} ${BUILD_DIR}/local ${BUILD_DIR}/vendor/bin ${COMPOSER_HOME}
+
+if [ -d "$BUILD_DIR" ]; then
+  echo "${BUILD_DIR} exists!"
+else
+  echo "${BUILD_DIR} does NOT exist!"
+fi
 
 pushd ${BUNDLE_DIR} > /dev/null
 
