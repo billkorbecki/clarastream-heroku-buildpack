@@ -285,6 +285,7 @@ mkdir -p client_body_temp fastcgi_temp proxy_temp scgi_temp uwsgi_temp
 (tail -f -n 0 /app/vendor/php/var/log/*.log /app/local/var/log/newrelic/*.log &)
 
 newrelic-daemon -c /app/local/etc/newrelic.cfg -d error
+./workerQueue.php
 
 EOF
 chmod +x worker.sh
