@@ -293,7 +293,7 @@ chmod +x worker.sh
 
 
 echo "-----> Installing wordpress boot script"
-cat >>wordpress-boot.sh <<EOF
+cat >> wordpress-boot.sh <<EOF
 #!/usr/bin/env bash
 
 echo "Booting nginx"
