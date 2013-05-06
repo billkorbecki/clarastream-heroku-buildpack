@@ -81,16 +81,16 @@ http {
         break;
       }
 
-     rewrite         ^(.+)$ /index.php?q=$1 last;
+      rewrite         ^(.+)$ /index.php?q=$1 last;
 
-    #  # Add trailing slash to */wp-admin requests.
-    rewrite         /wp-admin$ $scheme://$host$uri/ permanent;
+     #  # Add trailing slash to */wp-admin requests.
+     rewrite         /wp-admin$ $scheme://$host$uri/ permanent;
 
     #  # redirect to feedburner.
     #  # if ($http_user_agent !~ FeedBurner) {
     #  #   rewrite ^/feed/?$ http://feeds.feedburner.com/feedburner-feed-id last;
     #  # }
-    #}
+    }
 
     location ~ .*\.php$ {
       try_files $uri =404;
