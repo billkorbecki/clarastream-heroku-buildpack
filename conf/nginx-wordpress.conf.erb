@@ -28,7 +28,7 @@ http {
     listen            <%= ENV['PORT'] %>;
     server_name       _;
 
-    root              /app/admin/;
+    root              /app/;
     index             index.php index.html index.htm;
 
     # Some basic cache-control for static files to be sent to the browser
@@ -71,26 +71,20 @@ http {
     #  access_log   off;
     #}
 
-    set $yii_bootstrap "index.php";
 
     location / {
-        index  index.html $yii_bootstrap;
-        try_files $uri $uri/ /$yii_bootstrap?$args;
-    }
+      # wordpress fancy rewrites
+      if (-f $request_filename) {
+        break;
+      }
+      if (-d $request_filename) {
+        break;
+      }
 
-    #location / {
-    #  # wordpress fancy rewrites
-    #  if (-f $request_filename) {
-    #    break;
-    #  }
-    #  if (-d $request_filename) {
-    #    break;
-    #  }
-
-    #  rewrite         ^(.+)$ /index.php?q=$1 last;
+     rewrite         ^(.+)$ /index.php?q=$1 last;
 
     #  # Add trailing slash to */wp-admin requests.
-    #  rewrite         /wp-admin$ $scheme://$host$uri/ permanent;
+    rewrite         /wp-admin$ $scheme://$host$uri/ permanent;
 
     #  # redirect to feedburner.
     #  # if ($http_user_agent !~ FeedBurner) {
