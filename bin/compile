@@ -239,6 +239,11 @@ fi
 # Set correct port variable.
 erb /app/vendor/nginx/conf/nginx.conf.erb > /app/vendor/nginx/conf/nginx.conf
 
+# Set NEWRELIC key
+if [ -x "/app/local/bin/newrelic-license" ]; then
+	/app/local/bin/newrelic-license
+fi
+
 # Expose Heroku config vars to PHP-FPM processes
 for var in \`env | cut -f1 -d=\`; do
 	echo "env[\$var] = \\$\${var}" >> /app/vendor/php/etc/php-fpm.conf
@@ -254,7 +259,7 @@ if [ "\${NEW_RELIC_LICENSE_KEY}" ]; then
 	/app/local/bin/newrelic-daemon -c /app/local/etc/newrelic.cfg -d error
 fi
 
-if [ -w "/app/vendor/php/var/log/php-errors.log"]; then
+if [ -w "/app/vendor/php/var/log/php-errors.log" ]; then
       echo "php-errors.log exists!" 
 fi
 
