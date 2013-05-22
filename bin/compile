@@ -259,14 +259,10 @@ if [ "\${NEW_RELIC_LICENSE_KEY}" ]; then
 	/app/local/bin/newrelic-daemon -c /app/local/etc/newrelic.cfg -d error
 fi
 
-if [ -w "/app/vendor/php/var/log/php-errors.log" ]; then
-      echo "php-errors.log exists!" 
-fi
-
 (tail -f -n 0 /app/vendor/nginx/logs/*.log /app/vendor/php/var/log/*.log /app/local/var/log/newrelic/*.log &)
 
-/app/vendor/php/sbin/php-fpm &  
-/app/vendor/nginx/sbin/nginx &
+/app/vendor/php/sbin/php-fpm   
+/app/vendor/nginx/sbin/nginx 
 
 EOF
 chmod +x boot.sh
