@@ -265,8 +265,8 @@ fi
 
 (tail -f -n 0 /app/vendor/nginx/logs/*.log /app/vendor/php/var/log/*.log /app/local/var/log/newrelic/*.log &)
 
-/app/vendor/php/sbin/php-fpm 
-/app/vendor/nginx/sbin/nginx
+/app/vendor/php/sbin/php-fpm &  
+/app/vendor/nginx/sbin/nginx &
 
 EOF
 chmod +x boot.sh
