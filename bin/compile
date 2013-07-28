@@ -5,10 +5,10 @@ set -e
 set -o pipefail
 
 # START CONFIG
-NGINX_VERSION=1.2.5
+NGINX_VERSION=1.4.1
 LIBMCRYPT_VERSION=2.5.8
 LIBMEMCACHED_VERSION=1.0.7
-PHP_VERSION=5.4.8
+PHP_VERSION=5.4.12
 NEWRELIC_VERSION=2.9.5.78
 S3_BUCKET=clarastream.com/deployment
 # END CONFIG
@@ -152,7 +152,7 @@ fi
 
 mkdir -p ${BUILD_DIR}/vendor/php
 
-tar xzf ${PHP_FILE} -C ${BUILD_DIR}/vendor
+tar xzf ${PHP_FILE} -C ${BUILD_DIR}/vendor/php
 
 
 # newrelic
