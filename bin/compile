@@ -197,6 +197,11 @@ then
 fi
 popd > /dev/null
 
+# Settings
+echo "-----> Configuring"
+echo "app name: ${NEW_RELIC_APP_NAME}"
+sed -i -e 's~PHP Application~$NEW_RELIC_APP_NAME~' ${LP_DIR}/conf/etc.d/04_newrelic.ini
+
 # Config files
 echo "-----> Copying config files"
 
