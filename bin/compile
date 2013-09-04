@@ -199,8 +199,6 @@ popd > /dev/null
 
 # Settings
 echo "-----> Configuring"
-echo "app name: ${NEW_RELIC_APP_NAME}"
-sed -i -e 's~PHP Application~$NEW_RELIC_APP_NAME~' ${LP_DIR}/conf/etc.d/04_newrelic.ini
 
 # Config files
 echo "-----> Copying config files"
@@ -217,6 +215,7 @@ echo "-----> Installing boot script"
 cd $BUILD_DIR
 cat >>boot.sh <<EOF
 #!/usr/bin/env bash
+
 
 echo "Booting nginx"
 
@@ -247,6 +246,11 @@ erb /app/vendor/nginx/conf/nginx.conf.erb > /app/vendor/nginx/conf/nginx.conf
 # Set NEWRELIC key
 if [ -x "/app/local/bin/newrelic-license" ]; then
 	/app/local/bin/newrelic-license
+fi
+
+# Set correct application name for NewRelic
+if [ "\${NEW_RELIC_APP_NAME}" ]; then 
+    sed -i -e "s~PHP Application~\${NEW_RELIC_APP_NAME}~" /app/vendor/php/etc.d/04_newrelic.ini
 fi
 
 # Expose Heroku config vars to PHP-FPM processes
@@ -296,6 +300,11 @@ if [ -x "/app/local/bin/newrelic-license" ]; then
 	/app/local/bin/newrelic-license
 fi
 
+# Set correct application name for NewRelic
+if [ "\${NEW_RELIC_APP_NAME}" ]; then 
+    sed -i -e "s~PHP Application~\${NEW_RELIC_APP_NAME}~" /app/vendor/php/etc.d/04_newrelic.ini
+fi
+
 touch /app/vendor/nginx/logs/access.log /app/vendor/nginx/logs/error.log /app/vendor/php/var/log/php-fpm.log /app/vendor/php/var/log/php-errors.log /app/local/var/log/newrelic/newrelic-daemon.log /app/local/var/log/newrelic/php_agent.log
 
 mkdir -p client_body_temp fastcgi_temp proxy_temp scgi_temp uwsgi_temp
@@ -341,6 +350,11 @@ erb /app/vendor/nginx/conf/nginx-wordpress.conf.erb > /app/vendor/nginx/conf/ngi
 # Set NEWRELIC key
 if [ "\${NEW_RELIC_LICENSE_KEY}" ]; then
 	/app/local/bin/newrelic-daemon -c /app/local/etc/newrelic.cfg -d error
+fi
+
+# Set correct application name for NewRelic
+if [ "\${NEW_RELIC_APP_NAME}" ]; then 
+    sed -i -e "s~PHP Application~\${NEW_RELIC_APP_NAME}~" /app/vendor/php/etc.d/04_newrelic.ini
 fi
 
 # Expose Heroku config vars to PHP-FPM processes
