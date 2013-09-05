@@ -347,15 +347,23 @@ fi
 
 # Set correct port variable.
 erb /app/vendor/nginx/conf/nginx-wordpress.conf.erb > /app/vendor/nginx/conf/nginx.conf
+
 # Set NEWRELIC key
-if [ "\${NEW_RELIC_LICENSE_KEY}" ]; then
-	/app/local/bin/newrelic-daemon -c /app/local/etc/newrelic.cfg -d error
+if [ -x "/app/local/bin/newrelic-license" ]; then
+	/app/local/bin/newrelic-license
 fi
 
 # Set correct application name for NewRelic
 if [ "\${NEW_RELIC_APP_NAME}" ]; then 
     sed -i -e "s~PHP Application~\${NEW_RELIC_APP_NAME}~" /app/vendor/php/etc.d/04_newrelic.ini
 fi
+
+
+# Set NEWRELIC key
+if [ "\${NEW_RELIC_LICENSE_KEY}" ]; then
+	/app/local/bin/newrelic-daemon -c /app/local/etc/newrelic.cfg -d error
+fi
+
 
 # Expose Heroku config vars to PHP-FPM processes
 for var in \`env | cut -f1 -d=\`; do
